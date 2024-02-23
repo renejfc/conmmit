@@ -48,7 +48,8 @@ const results = await group(
     currentCommitMsg: ({ results }) =>
       note(
         c.bold(
-          c.bgGreen(getCommitMessage({
+          c.bgGreen(
+            getCommitMessage({
               type: results.type!,
               subject: results.subject!,
               scope: results.scope as string,
