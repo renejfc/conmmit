@@ -1,6 +1,7 @@
 {
   "version": "0.0.1",
   "name": "conmmit",
+  "main": "build/index.js",
   "author": {
     "name": "ReneJFC",
     "url": "https://x.com/ReneJFC_"
@@ -35,6 +36,6 @@
   },
   "type": "module",
   "bin": {
-    "conmmit": "./build/index.js"
+    "conmmit": "build/index.js"
   }
 }
