@@ -1,7 +1,6 @@
 {
   "version": "0.0.2-alpha.1",
   "name": "conmmit",
-  "main": "build/index.js",
   "author": {
     "name": "ReneJFC",
     "url": "https://x.com/ReneJFC_"
@@ -41,6 +40,6 @@
   },
   "type": "module",
   "bin": {
-    "conmmit": "build/index.js"
+    "conmmit": "./src/index.ts"
   }
 }
