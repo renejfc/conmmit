@@ -1,12 +1,17 @@
 {
-  "version": "0.0.1",
+  "version": "0.0.2-alpha.0",
   "name": "conmmit",
   "main": "build/index.js",
   "author": {
     "name": "ReneJFC",
     "url": "https://x.com/ReneJFC_"
   },
-  "keywords": ["commit", "conventional commits", "cli", "git"],
+  "keywords": [
+    "commit",
+    "conventional commits",
+    "cli",
+    "git"
+  ],
   "license": "MIT",
   "repository": {
     "type": "git",
