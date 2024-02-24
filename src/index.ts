@@ -1,3 +1,5 @@
+#!/usr/bin/env bun
+
 import { setTimeout } from "node:timers/promises"
 import { cancel, confirm, group, intro, log, note, outro, select, spinner, text } from "@clack/prompts"
 import { $ } from "bun"
