@@ -6,6 +6,7 @@
     "module": "ESNext",
     "moduleDetection": "force",
     "jsx": "react-jsx",
+    "jsxImportSource": "~/lib/prompts/runtime",
     "allowJs": true,
 
     // Bundler mode
@@ -26,9 +27,8 @@
 
     // Custom
     "baseUrl": ".",
-    "resolveJsonModule": true,
     "paths": {
       "~/*": ["src/*"]
-    }
+    },
   }
 }
