@@ -1,5 +1,5 @@
-import type { Component } from "./types"
+import type { JSXSignature } from "./types"
 
-export function jsx(component: Component, props: { children: Array<any>, [x: string]: any }): any {
+export function jsx(component: JSXSignature["component"], props: JSXSignature["props"]): any {
   return component(props)
 }

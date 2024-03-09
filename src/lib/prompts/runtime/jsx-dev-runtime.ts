@@ -1,6 +1,6 @@
-import type { Component } from "./types"
+import type { JSXSignature } from "./types"
 
-export function jsxDEV(component: Component, props: { children: Array<any>, [x: string]: any }): any {
+export function jsxDEV(component: JSXSignature["component"], props: JSXSignature["props"]): any {
   console.log("Parsing JSX props:", props, "\n")
   return component(props)
 }
