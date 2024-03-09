@@ -1,3 +1,5 @@
-import { Text } from "~/lib/prompts/"
+import { Confirm, Password, Text } from "~/lib/prompts/"
 
-const p = <Text message="Test" />
+// const p = await <Text message="Test" />
+// const p2 = await <Password message="Password" />
+const p3 = await <Confirm message="R u sure?" />
