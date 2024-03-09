@@ -1,0 +1,9 @@
+pre-push:
+  parallel: true
+  commands:
+    lint-check:
+      run: bun lint --no-errors-on-unmatched --files-ignore-unknown=true {push_files}
+    type-check:
+      run: bun typecheck --no-errors-on-unmatched --files-ignore-unknown=true {push_files}
+    format-check:
+      run: bun format --files-ignore-unknown=true {push_files}
