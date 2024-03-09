@@ -31,3 +31,12 @@ export type SelectOptions<Value> = {
   initialValue?: Value
   maxItems?: number
 }
+
+export type MultiSelectOptions<Value> = {
+  message: string
+  children: Option<Value>[]
+  initialValues?: Value[]
+  maxItems?: number
+  required?: boolean
+  cursorAt?: Value
+}
