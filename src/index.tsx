@@ -1,3 +1,3 @@
-import { Text } from '~/lib/prompts/'
+import { Text } from "~/lib/prompts/"
 
-const p = <Text message='Test' />
+const p = <Text message="Test" />

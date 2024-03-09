@@ -15,31 +15,25 @@ export function Text(opts: TextOptions) {
       const placeholder = opts.placeholder
         ? c.inverse(opts.placeholder[0]) + c.dim(opts.placeholder.slice(1))
         : c.inverse(c.hidden("_"))
-      
+
       const value = !this.value ? placeholder : this.valueWithCursor
-      
+
       switch (this.state) {
         case "error":
-          return (
-            `${title.trim()}\n${c.yellow(S.BAR)}  ${value}\n` +
-            `${c.yellow(S.BAR_END)}  ${c.yellow(this.error)}\n`
-          )
-      
+          return `${title.trim()}\n${c.yellow(S.BAR)}  ${value}\n` + `${c.yellow(S.BAR_END)}  ${c.yellow(this.error)}\n`
+
         case "submit":
           return `${title}${c.gray(S.BAR)}  ${c.dim(this.value || opts.placeholder)}`
-      
+
         case "cancel": {
           const canceledValue = c.strikethrough(c.dim(this.value ?? ""))
           const hasTrimmedValue = this.value?.trim()
-          return (
-            `${title}${c.gray(S.BAR)}  ${canceledValue}` +
-            `${hasTrimmedValue ? `\n${c.gray(S.BAR)}` : ""}`
-          )
+          return `${title}${c.gray(S.BAR)}  ${canceledValue}` + `${hasTrimmedValue ? `\n${c.gray(S.BAR)}` : ""}`
         }
-      
+
         default:
           return `${title}${c.cyan(S.BAR)}  ${value}\n${c.cyan(S.BAR_END)}\n`
-      }      
+      }
     },
   }).prompt()
 }
