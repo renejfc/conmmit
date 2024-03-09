@@ -21,14 +21,12 @@
     "noFallthroughCasesInSwitch": true,
 
     // Some stricter flags (disabled by default)
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
     "noPropertyAccessFromIndexSignature": true,
 
     // Custom
     "baseUrl": ".",
     "paths": {
       "~/*": ["src/*"]
-    },
+    }
   }
 }

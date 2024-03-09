@@ -5,12 +5,7 @@
     "name": "ReneJFC",
     "url": "https://x.com/ReneJFC_"
   },
-  "keywords": [
-    "commit",
-    "conventional commits",
-    "cli",
-    "git"
-  ],
+  "keywords": ["commit", "conventional commits", "cli", "git"],
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -20,15 +15,18 @@
     "start": "NODE_ENV=production bun ./src/index.tsx",
     "dev": "bun ./src/index.tsx",
     "build": "bun build --target=bun ./src/index.ts --outdir ./build",
-    "format": "biome format . --write",
+    "format": "biome format . --changed",
+    "format:fix": "biome format . --write --changed",
     "typecheck": "tsc",
-    "lint": "biome lint .",
-    "lint:fix": "biome lint . --apply",
-    "magic:fix": "biome check . --apply"
+    "lint": "biome lint . --changed",
+    "lint:fix": "biome lint . --apply --changed",
+    "magic:fix": "biome check . --apply --changed",
+    "postinstall": "bunx lefthook install"
   },
   "devDependencies": {
-    "@biomejs/biome": "1.5.3",
+    "@biomejs/biome": "latest",
     "@types/bun": "latest",
+    "lefthook": "^1.6.5",
     "typescript": "^5.3.3"
   },
   "peerDependencies": {
