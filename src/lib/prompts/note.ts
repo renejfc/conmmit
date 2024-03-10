@@ -3,7 +3,7 @@ import { S } from "./symbols"
 
 const strip = (str: string) => str.replace(ansiRegex(), "")
 
-export function Note({ message = "", title ="" }: { message?: string; title?: string }) {
+export function Note({ message = "", title = "" }: { message?: string; title?: string }) {
   const lines = `\n${message}\n`.split("\n")
   const titleLen = strip(title).length
 

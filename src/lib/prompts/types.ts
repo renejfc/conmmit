@@ -45,3 +45,13 @@ export type LogMessageOptions = {
   message?: string
   symbol?: string
 }
+
+export type SpinnerStepOptions = {
+  message: string
+  resolve: (stop: (msg?: string, code?: number) => void) => Promise<void>
+}
+
+export type SpinnerFlowOptions = {
+  successMessage?: string
+  children: SpinnerStepOptions[]
+}
