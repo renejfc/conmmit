@@ -40,3 +40,8 @@ export type MultiSelectOptions<Value> = {
   required?: boolean
   cursorAt?: Value
 }
+
+export type LogMessageOptions = {
+  message?: string
+  symbol?: string
+}
