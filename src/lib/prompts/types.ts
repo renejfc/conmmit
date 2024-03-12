@@ -55,3 +55,13 @@ export type SpinnerFlowOptions = {
   successMessage?: string
   children: SpinnerStepOptions[]
 }
+
+export type GroupStepOptions = {
+  name?: string
+  render: (results: Record<string, any>) => Promise<any>
+}
+
+export type GroupFlowOptions = {
+  cancelMessage?: string
+  children: GroupStepOptions[]
+}
