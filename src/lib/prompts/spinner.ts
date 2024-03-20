@@ -2,30 +2,24 @@ import { block } from "@clack/core"
 import isUnicodeSupported from "is-unicode-supported"
 import c from "picocolors"
 import { cursor, erase } from "sisteransi"
+import { Log } from "./log"
 import { S } from "./symbols"
 import type { SpinnerFlowOptions, SpinnerStepOptions } from "./types"
 
-function Step({ message, resolve }: SpinnerStepOptions) {
-  return {
-    message,
-    resolve,
-  }
+function Step(opts: SpinnerStepOptions) {
+  return opts
 }
 
-async function Flow({ successMessage, children }: SpinnerFlowOptions) {
-  const { isSpinnerActive, message, start, stop } = _spinner()
-  const firstStepMessage = children[0].message
-
-  start(firstStepMessage)
-
-  for (const { message: msg, resolve } of children) {
-    if (!isSpinnerActive()) return
-
-    message(msg)
-    await resolve(stop)
+async function Flow({ success, children }: SpinnerFlowOptions) {
+  for (const { message, resolve, success } of children) {
+    const { start, stop } = _spinner()
+    start(message)
+    const cb = await resolve(stop)
+    stop(success)
+    cb?.()
   }
 
-  isSpinnerActive() && stop(successMessage)
+  success && Log.Success({ message: success })
 }
 
 export const Spinner = {
@@ -115,12 +109,9 @@ function _spinner() {
     _message = msg
   }
 
-  const getSpinnerActive = () => isSpinnerActive
-
   return {
     start,
     stop,
     message,
-    isSpinnerActive: getSpinnerActive,
   }
 }
