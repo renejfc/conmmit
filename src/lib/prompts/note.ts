@@ -21,7 +21,7 @@ export function Note({ message = "", title = "" }: { message?: string; title?: s
     .join("\n")
 
   process.stdout.write(
-    `${c.gray(S.BAR)}\n${c.green(S.STEP_SUBMIT)}  ${c.reset(title)} ${c.gray(
+    `${c.gray(S.BAR)}\n${c.blue(S.INFO)}  ${c.reset(title)} ${c.gray(
       S.BAR_H.repeat(Math.max(len - titleLen - 1, 1)) + S.CORNER_TOP_RIGHT
     )}\n${msg}\n${c.gray(S.CONNECT_LEFT + S.BAR_H.repeat(len + 2) + S.CORNER_BOTTOM_RIGHT)}\n`
   )
