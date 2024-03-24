@@ -13,8 +13,8 @@
   },
   "scripts": {
     "start": "NODE_ENV=production bun ./src/index.tsx",
-    "dev": "bun ./src/index.tsx",
-    "build": "bun build --target=bun ./src/index.ts --outdir ./build",
+    "dev": "bun ./scripts/dev.ts",
+    "comp": "bun ./scripts/build.ts",
     "format": "biome format . --changed",
     "format:fix": "biome format . --write --changed",
     "typecheck": "tsc",
@@ -39,6 +39,6 @@
   },
   "type": "module",
   "bin": {
-    "conmmit": "./src/index.tsx"
+    "conmmit": "./dist/conmmit.js"
   }
 }
