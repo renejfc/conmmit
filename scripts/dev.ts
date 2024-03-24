@@ -12,8 +12,7 @@ for await (const event of watcher) {
 
   const compp = await $`bun comp`.quiet()
 
-  if (compp.exitCode === 0)
-    console.log("Compiled")
+  if (compp.exitCode === 0) console.log("Compiled")
 }
 
 process.on("SIGINT", () => {
