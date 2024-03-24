@@ -48,6 +48,7 @@ if (build.exitCode === 0) {
 
   ${build.stderr.toString()}
   `)
+  process.exit(1)
 }
 
 function bytesTo(bytes: number, to: "mb" | "kb") {
