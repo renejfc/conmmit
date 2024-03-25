@@ -1,11 +1,16 @@
 {
-  "version": "0.0.2-alpha.3",
+  "version": "0.0.2",
   "name": "conmmit",
   "author": {
     "name": "ReneJFC",
     "url": "https://x.com/ReneJFC_"
   },
-  "keywords": ["commit", "conventional commits", "cli", "git"],
+  "keywords": [
+    "commit",
+    "conventional commits",
+    "cli",
+    "git"
+  ],
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -15,14 +20,14 @@
     "start": "NODE_ENV=production bun ./src/index.tsx",
     "dev": "bun ./scripts/dev.ts",
     "comp": "bun ./scripts/build.ts",
-    "format": "biome format .",
-    "format:fix": "biome format . --write",
+    "format": "biome format ./src",
+    "format:fix": "biome format ./src --write",
     "typecheck": "tsc",
-    "lint": "biome lint .",
-    "lint:fix": "biome lint . --apply",
-    "magic:fix": "biome check . --apply",
+    "lint": "biome lint ./src",
+    "lint:fix": "biome lint ./src --apply",
+    "magic:fix": "biome check ./src --apply",
     "postinstall": "bunx lefthook install",
-    "release": "bun magic:fix && bun typecheck && bun comp && changelogen --clean --release --push --publish"
+    "release": "bun magic:fix && bun typecheck && bun comp && changelogen --release --push --publish"
   },
   "devDependencies": {
     "@biomejs/biome": "latest",
