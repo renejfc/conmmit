@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.0.3
+
+[compare changes](https://github.com/renejfc/conmmit/compare/v0.0.2...v0.0.3)
+
+### 🩹 Fixes
+
+- **package:** Add bin file to repo? ([48d77d2](https://github.com/renejfc/conmmit/commit/48d77d2))
+
+### ❤️ Contributors
+
+- René <renejfc@gmail.com>
+
 ## v0.0.2
 
 
