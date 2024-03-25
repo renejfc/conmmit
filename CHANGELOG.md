@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.0.5
+
+[compare changes](https://github.com/renejfc/conmmit/compare/v0.0.4...v0.0.5)
+
+### 🩹 Fixes
+
+- **package:** Add shebang to index (hopefully works) ([490ff46](https://github.com/renejfc/conmmit/commit/490ff46))
+
+### ❤️ Contributors
+
+- René <renejfc@gmail.com>
+
 ## v0.0.4
 
 [compare changes](https://github.com/renejfc/conmmit/compare/v0.0.3...v0.0.4)
