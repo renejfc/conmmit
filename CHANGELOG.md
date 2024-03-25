@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.0.4
+
+[compare changes](https://github.com/renejfc/conmmit/compare/v0.0.3...v0.0.4)
+
+### 🩹 Fixes
+
+- **package:** Change bin to raw tsx file ([99123ea](https://github.com/renejfc/conmmit/commit/99123ea))
+
+### ❤️ Contributors
+
+- René <renejfc@gmail.com>
+
 ## v0.0.3
 
 [compare changes](https://github.com/renejfc/conmmit/compare/v0.0.2...v0.0.3)
