@@ -46,6 +46,6 @@
   },
   "type": "module",
   "bin": {
-    "conmmit": "./dist/conmmit.js"
+    "conmmit": "./src/index.tsx"
   }
 }
