@@ -1,3 +1,5 @@
+#!/usr/bin/env bun
+
 import { $ } from "bun"
 import c from "picocolors"
 import { config, getCommitMessage } from "~/lib/core"
