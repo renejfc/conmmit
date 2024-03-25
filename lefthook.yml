@@ -2,8 +2,8 @@ pre-push:
   parallel: true
   commands:
     lint-check:
-      run: bunx biome lint --no-errors-on-unmatched --files-ignore-unknown=true {push_files}
+      run: bun run lint
     type-check:
       run: bun run typecheck
     format-check:
-      run: bunx biome format --files-ignore-unknown=true {push_files}
+      run: bun run format
