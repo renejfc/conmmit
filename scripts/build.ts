@@ -1,7 +1,7 @@
 import { $, file } from "bun"
 import c from "picocolors"
 
-const ENTRYPOINT = "./src/index.tsx"
+const ENTRYPOINT = "./src/index.ts"
 const OUTDIR = "./dist"
 const COMP_OUTFILE = `${OUTDIR}/conmmit`
 const BUILD_OUTFILE = `${OUTDIR}/conmmit.js`

@@ -5,8 +5,6 @@
     "target": "ESNext",
     "module": "ESNext",
     "moduleDetection": "force",
-    "jsx": "react-jsx",
-    "jsxImportSource": "~/lib/prompts/runtime",
     "allowJs": true,
 
     // Bundler mode
@@ -21,6 +19,8 @@
     "noFallthroughCasesInSwitch": true,
 
     // Some stricter flags (disabled by default)
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
     "noPropertyAccessFromIndexSignature": true,
 
     // Custom
