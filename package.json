@@ -1,6 +1,6 @@
 {
   "name": "conmmit",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "A CLI that helps you create conventional commits (a.k.a conmmits)",
   "keywords": [
     "commit",

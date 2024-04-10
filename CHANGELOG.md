@@ -1,6 +1,32 @@
 # Changelog
 
 
+## v0.0.6
+
+[compare changes](https://github.com/renejfc/conmmit/compare/v0.0.5...v0.0.6)
+
+### 🚀 Enhancements
+
+- **internal:** Add args handling ([f3c23c3](https://github.com/renejfc/conmmit/commit/f3c23c3))
+- **cli:** Option to add specific files or all ([68febee](https://github.com/renejfc/conmmit/commit/68febee))
+
+### 💅 Refactors
+
+- **mvp:** Change whole structure, api, etc... ([85da344](https://github.com/renejfc/conmmit/commit/85da344))
+- **split:** Change task handling & split stuff ([cb22691](https://github.com/renejfc/conmmit/commit/cb22691))
+
+### 📦 Build
+
+- **deps:** Bump deps ([5fd6c61](https://github.com/renejfc/conmmit/commit/5fd6c61))
+
+### 🏡 Chore
+
+- **package:** Add package metadata ([5d19a08](https://github.com/renejfc/conmmit/commit/5d19a08))
+
+### ❤️ Contributors
+
+- René <renejfc@gmail.com>
+
 ## v0.0.5
 
 [compare changes](https://github.com/renejfc/conmmit/compare/v0.0.4...v0.0.5)
