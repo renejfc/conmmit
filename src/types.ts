@@ -17,3 +17,14 @@ export type CommitType = {
   description: string
   exampleScopes: string[]
 }
+
+export type Task = {
+  progress: [string, string?]
+  task: ({
+    message,
+    stop,
+  }: { message: (string: string) => void; stop: (msg: string, code?: number) => void }) =>
+    | Promise<() => void>
+    | Promise<void>
+  enabled?: boolean
+}

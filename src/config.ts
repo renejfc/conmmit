@@ -1,4 +1,4 @@
-import type { CommitType } from "./types"
+import type { CommitType } from "~/types"
 
 export const LINE_MAX_LENGTH = 100
 export const LINE_MIN_LENGTH = 3
