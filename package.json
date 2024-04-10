@@ -1,33 +1,47 @@
 {
-  "version": "0.0.5",
   "name": "conmmit",
-  "author": {
-    "name": "ReneJFC",
-    "url": "https://x.com/ReneJFC_"
-  },
+  "version": "0.0.5",
+  "description": "A CLI that helps you create conventional commits (a.k.a conmmits)",
   "keywords": [
     "commit",
+    "commits",
     "conventional commits",
     "cli",
-    "git"
+    "git",
+    "bun"
   ],
-  "license": "MIT",
+  "homepage": "https://github.com/renejfc/conmmit#readme",
+  "bugs": {
+    "url": "https://github.com/renejfc/conmmit/issues"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/renejfc/conmmit.git"
   },
+  "license": "MIT",
+  "author": {
+    "name": "ReneJFC",
+    "url": "https://x.com/ReneJFC_"
+  },
+  "type": "module",
+  "main": "src/index.ts",
+  "bin": "src/index.ts",
   "scripts": {
-    "start": "NODE_ENV=production bun src/index.ts",
-    "dev": "bun scripts/dev.ts",
     "comp": "bun scripts/build.ts",
+    "dev": "bun scripts/dev.ts",
     "format": "biome format src",
     "format:fix": "biome format src --write",
-    "typecheck": "tsc",
+    "postinstall": "bunx lefthook install",
     "lint": "biome lint src",
     "lint:fix": "biome lint src --apply",
     "magic:fix": "biome check src --apply",
-    "postinstall": "bunx lefthook install",
-    "release": "bun magic:fix && changelogen --release --push --publish"
+    "release": "bun magic:fix && changelogen --release --push --publish",
+    "start": "NODE_ENV=production bun src/index.ts",
+    "typecheck": "tsc"
+  },
+  "dependencies": {
+    "@clack/prompts": "^0.7.0",
+    "picocolors": "^1.0.0"
   },
   "devDependencies": {
     "@biomejs/biome": "latest",
@@ -38,11 +52,5 @@
   },
   "peerDependencies": {
     "typescript": "^5.3.3"
-  },
-  "dependencies": {
-    "@clack/prompts": "^0.7.0",
-    "picocolors": "^1.0.0"
-  },
-  "type": "module",
-  "bin": "src/index.ts"
+  }
 }
