@@ -40,17 +40,17 @@
     "typecheck": "tsc"
   },
   "dependencies": {
-    "@clack/prompts": "^0.7.0",
+    "@clack/prompts": "0.7.0",
     "picocolors": "^1.0.0"
   },
   "devDependencies": {
-    "@biomejs/biome": "latest",
-    "@types/bun": "latest",
-    "changelogen": "latest",
-    "lefthook": "^1.6.5",
-    "typescript": "^5.3.3"
+    "@biomejs/biome": "^1.6.4",
+    "@types/bun": "^1.0.12",
+    "changelogen": "^0.5.5",
+    "lefthook": "^1.6.10",
+    "typescript": "^5.4.5"
   },
   "peerDependencies": {
-    "typescript": "^5.3.3"
+    "typescript": "^5.4.5"
   }
 }
