@@ -34,7 +34,7 @@ export const commitPrompt = async () => {
               return `Subject must be less than ${c.bold(c.red(LINE_MAX_LENGTH))} characters`
           },
         }),
-      showMessage: ({ results }) =>
+      showMessage: async ({ results }) =>
         note(
           c.bold(
             c.bgYellow(
