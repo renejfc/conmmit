@@ -21,13 +21,13 @@ export const commitPrompt = async () => {
       scope: ({ results }) =>
         text({
           message: `Type a scope ${c.italic(c.dim("(optional)"))}`,
-          placeholder: `Examples: ${COMMIT_TYPE.find(t => t.name === results.type)?.exampleScopes.join(", ")}, etc...`,
+          placeholder: `Examples: ${COMMIT_TYPE.find((t) => t.name === results.type)?.exampleScopes.join(", ")}, etc...`,
         }),
       subject: () =>
         text({
           message: "Whats the subject?",
           placeholder: `Example: "change files structure"`,
-          validate: value => {
+          validate: (value) => {
             if (!value) return "Subject is required"
             if (value.length < LINE_MIN_LENGTH) return `Subject must be at least ${c.bold(c.red(3))} characters`
             if (value.length > LINE_MAX_LENGTH)

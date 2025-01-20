@@ -1,5 +1,5 @@
 {
-  "$schema": "https://biomejs.dev/schemas/1.6.0/schema.json",
+  "$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
   "vcs": {
     "enabled": true,
     "clientKind": "git",
@@ -14,27 +14,30 @@
     "rules": {
       "recommended": true,
       "style": {
-        "noNonNullAssertion": "off"
+        "noNonNullAssertion": "info"
       },
       "suspicious": {
-        "noExplicitAny": "off",
-        "noConfusingVoidType": "off"
+        "noExplicitAny": "info"
+      },
+      "complexity": {
+        "useSimplifiedLogicExpression": "warn",
+        "noUselessStringConcat": "error"
+      },
+      "correctness": {
+        "noUnusedImports": "error"
       }
     }
   },
   "formatter": {
-    "lineWidth": 120,
-    "indentWidth": 2,
+    "enabled": true,
     "indentStyle": "space",
-    "lineEnding": "lf",
-    "formatWithErrors": false
+    "lineWidth": 120
   },
   "javascript": {
     "formatter": {
+      "quoteStyle": "double",
       "semicolons": "asNeeded",
-      "trailingComma": "es5",
-      "arrowParentheses": "asNeeded",
-      "quoteStyle": "double"
+      "trailingCommas": "es5"
     }
   }
 }

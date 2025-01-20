@@ -33,11 +33,11 @@ const getOptions = async () => {
     input.stdout
       .toString()
       .split("\n")
-      .map(fileStr => ({
+      .map((fileStr) => ({
         label: c.italic(fileStr),
         value: fileStr,
       }))
-      .filter(str => str.value !== "")
+      .filter((str) => str.value !== "")
 
   const changed = filesStrToOptions(changedFilesSh)
   const untracked = filesStrToOptions(untrackedFilesSh)
