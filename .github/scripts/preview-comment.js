@@ -3,14 +3,14 @@ import { readFileSync } from "node:fs"
 const BOT_COMMENT_IDENTIFIER = "### 🧪 CLI Preview Build."
 const COMMIT_LENGTH = 7
 
-const generateUrls = ({ sha, owner, repo, commitUrl }) => {
+const generateUrls = ({ sha, owner, repo, commitUrl = null }) => {
   const shortSha = sha.substring(0, COMMIT_LENGTH)
   const shortUrl = `https://pkg.pr.new/${owner}/${repo}@${shortSha}`
 
   return {
     shortSha,
     shortUrl,
-    commitUrl,
+    commitUrl: commitUrl ?? `https://github.com/${owner}/${repo}/commit/${sha}`,
   }
 }
 
