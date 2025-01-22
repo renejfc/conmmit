@@ -1,22 +1,16 @@
 name: Preview Any Commit
 on: [push, pull_request]
-
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-
-      - run: corepack enable
-      - uses: actions/setup-node@v4
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
         with:
-          node-version: 20
-          cache: "pnpm"
-
+          bun-version: latest
       - name: Install deps
-        run: pnpm install
-
+        run: bun install
       - name: Publish preview
-        run: pnpx pkg-pr-new publish
+        run: bunx pkg-pr-new publish
