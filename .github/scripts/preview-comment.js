@@ -1,16 +1,17 @@
 import { readFileSync } from "node:fs"
 
-const BOT_COMMENT_IDENTIFIER = "### 🛠️ CLI Preview Ready"
+const generateCommentBody = (output, commitUrl) => {
+  return `### 🧪 CLI Preview Build.
 
-const generateCommentBody = (output, commitHash, commitUrl) => {
-  return `### 🛠️ CLI Preview Ready
-
+Try this version:
+\`\`\`sh
+bun add -g ${output.packages[0].url ?? ""}
 \`\`\`
-bun add -g ${output.packages[0].url}
-\`\`\`
 
-Commit hash: [${commitHash}](${commitUrl})`
+[${output.packages[0].shasum ?? ""}](${commitUrl ?? ""})`
 }
+
+const BOT_COMMENT_IDENTIFIER = generateCommentBody().split(".")
 
 const findBotComment = async (github, context, issueNumber) => {
   const comments = await github.rest.issues.listComments({
@@ -51,7 +52,7 @@ const logPublishInfo = (output, commitUrl) => {
 
 export async function run(github, context) {
   const output = JSON.parse(readFileSync("output.json", "utf8"))
-  const sha = context.eventName === "pull_request" ? context.payload.pull_request?.head.sha : context.payload.after
+  const sha = context.eventName === "pull_request" ? context.payload.pull_request.head.sha : context.payload.after
   const commitUrl = `https://github.com/${context.repo.owner}/${context.repo.repo}/commit/${sha}`
   const body = generateCommentBody(output, sha, commitUrl)
 
@@ -59,7 +60,8 @@ export async function run(github, context) {
     await createOrUpdateComment(github, context, body, context.issue.number)
   } else if (context.eventName === "push") {
     const pullRequests = await github.rest.pulls.list({
-      ...context.repo,
+      owner: context.repo.owner,
+      repo: context.repo.repo,
       state: "open",
       head: `${context.repo.owner}:${context.ref.replace("refs/heads/", "")}`,
     })
