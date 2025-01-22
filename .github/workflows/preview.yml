@@ -21,9 +21,8 @@ jobs:
       - name: Publish preview
         run: bunx pkg-pr-new publish --json output.json --comment=off
       - name: Post or update comment
-        uses: actions/github-script@v6
+        uses: actions/github-script@v7
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            const { run } = require('./.github/scripts/preview-comment')
+            const { run } = await import('${{ github.workspace }}/.github/scripts/preview-comment.js')
             await run(github, context)
