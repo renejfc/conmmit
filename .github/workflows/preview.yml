@@ -13,4 +13,4 @@ jobs:
       - name: Install deps
         run: bun install
       - name: Publish preview
-        run: bunx pkg-pr-new publish
+        run: bunx pkg-pr-new publish --packageManager=bun --comment=off
