@@ -33,7 +33,7 @@ const findBotComment = async ({ github, context, issueNumber }) => {
     issue_number: issueNumber,
   })
 
-  return comments.data.find((comment) => comment.body.includes(CONSTANTS.BOT_COMMENT_IDENTIFIER))
+  return comments.data.find((comment) => comment.body.includes(BOT_COMMENT_IDENTIFIER))
 }
 
 const createOrUpdateComment = async ({ github, context, body, issueNumber }) => {
