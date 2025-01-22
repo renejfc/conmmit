@@ -1,17 +1,17 @@
 import { readFileSync } from "node:fs"
 
+const BOT_COMMENT_IDENTIFIER = "### 🧪 CLI Preview Build."
+
 const generateCommentBody = (output, commitUrl) => {
   return `### 🧪 CLI Preview Build.
 
 Try this version:
 \`\`\`sh
-bun add -g ${output.packages[0].url ?? ""}
+bun add -g ${output.packages[0].url}
 \`\`\`
 
-[${output.packages[0].shasum ?? ""}](${commitUrl ?? ""})`
+[${output.packages[0].shasum}](${commitUrl})`
 }
-
-const BOT_COMMENT_IDENTIFIER = generateCommentBody().split(".")
 
 const findBotComment = async (github, context, issueNumber) => {
   const comments = await github.rest.issues.listComments({
