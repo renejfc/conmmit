@@ -19,7 +19,7 @@ jobs:
       - name: Install deps
         run: bun install
       - name: Publish preview
-        run: bunx pkg-pr-new publish --json output.json --comment=off
+        run: bunx pkg-pr-new publish --packageManager=bun --json output.json --comment=off
       - name: Post or update comment
         uses: actions/github-script@v7
         with:
