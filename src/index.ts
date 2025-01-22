@@ -15,7 +15,7 @@ const args = parseArgs([
   [["add-all", "A"], "Add all changes to the commit"],
 ])
 
-intro(c.bold(c.bgCyan("CONMMIT TEST")))
+intro(c.bold(c.bgCyan("CONMMIT TESTT")))
 
 const addResults = (args.get("add") && (await addPrompt())) || []
 const commitResults = await commitPrompt()

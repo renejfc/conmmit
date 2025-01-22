@@ -3,9 +3,9 @@ import { readFileSync } from "node:fs"
 const BOT_COMMENT_IDENTIFIER = "### 🧪 CLI Preview Build."
 const COMMIT_LENGTH = 7
 
-const generateUrls = ({ sha, owner, repo, commitUrl = null }) => {
+const generateUrls = ({ sha, owner, repo, commitUrl = null, prNumber = null }) => {
   const shortSha = sha.substring(0, COMMIT_LENGTH)
-  const shortUrl = `https://pkg.pr.new/${owner}/${repo}@${shortSha}`
+  const shortUrl = `https://pkg.pr.new/${owner}/${repo}@${prNumber ?? shortSha}`
 
   return {
     shortSha,
@@ -14,8 +14,8 @@ const generateUrls = ({ sha, owner, repo, commitUrl = null }) => {
   }
 }
 
-const generateCommentBody = ({ sha, owner, repo, commitUrl }) => {
-  const { shortSha, shortUrl } = generateUrls({ sha, owner, repo })
+const generateCommentBody = ({ sha, owner, repo, commitUrl, prNumber }) => {
+  const { shortSha, shortUrl } = generateUrls({ sha, owner, repo, commitUrl, prNumber })
 
   return `${BOT_COMMENT_IDENTIFIER}
 
@@ -24,7 +24,7 @@ Try this version:
 bun add -g ${shortUrl}
 \`\`\`
 
-[${shortSha}](${commitUrl})`
+###### _[${shortSha}](${commitUrl})_`
 }
 
 const findBotComment = async ({ github, context, issueNumber }) => {
@@ -40,7 +40,7 @@ const createOrUpdateComment = async ({ github, context, body, issueNumber }) => 
   const existingComment = await findBotComment({ github, context, issueNumber })
 
   if (existingComment) {
-    return github.rest.issues.updateComment({
+    return await github.rest.issues.updateComment({
       ...context.repo,
       comment_id: existingComment.id,
       body,
@@ -54,7 +54,7 @@ const createOrUpdateComment = async ({ github, context, body, issueNumber }) => 
   })
 }
 
-const logPublishInfo = ({ output, commitUrl }) => {
+const logPublishInfo = async ({ output, commitUrl }) => {
   console.log(`\n${"=".repeat(50)}`)
   console.log("Preview Information")
   console.log("=".repeat(50))
@@ -66,7 +66,7 @@ const logPublishInfo = ({ output, commitUrl }) => {
 
 const handlePullRequest = async ({ github, context, body }) => {
   if (!context.issue.number) return
-  return createOrUpdateComment({
+  return await createOrUpdateComment({
     github,
     context,
     body,
@@ -82,7 +82,7 @@ const handlePush = async ({ github, context, body, output, commitUrl }) => {
   })
 
   if (pullRequests.data.length > 0) {
-    return createOrUpdateComment({
+    return await createOrUpdateComment({
       github,
       context,
       body,
@@ -91,17 +91,19 @@ const handlePush = async ({ github, context, body, output, commitUrl }) => {
   }
 
   console.log("No open pull request found for this push. Logging publish information to console:")
-  logPublishInfo({ output, commitUrl })
+  await logPublishInfo({ output, commitUrl })
 }
 
 export async function run(github, context) {
   const output = JSON.parse(readFileSync("output.json", "utf8"))
   const sha = context.eventName === "pull_request" ? context.payload.pull_request.head.sha : context.payload.after
+  const prNumber = context.eventName === "pull_request" ? context.payload.pull_request.number : null
 
   const { commitUrl } = generateUrls({
     sha,
     owner: context.repo.owner,
     repo: context.repo.repo,
+    prNumber,
   })
 
   const body = generateCommentBody({
@@ -109,6 +111,7 @@ export async function run(github, context) {
     owner: context.repo.owner,
     repo: context.repo.repo,
     commitUrl,
+    prNumber,
   })
 
   const handlers = {
