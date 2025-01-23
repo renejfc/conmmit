@@ -54,6 +54,16 @@ const createOrUpdateComment = async ({ github, context, body, issueNumber }) => 
   })
 }
 
+const logPublishInfo = async ({ logger, output, commitUrl }) => {
+  logger(`\n${"=".repeat(50)}`)
+  logger("Preview Information")
+  logger("=".repeat(50))
+  logger("\nCLI Preview Ready:")
+  logger(`- ${output.packages[0].url}`)
+  logger(`\nCommit URL: ${commitUrl}`)
+  logger(`\n${"=".repeat(50)}`)
+}
+
 const handlePullRequest = async ({ github, context, body }) => {
   if (!context.issue.number) return
   return await createOrUpdateComment({
@@ -64,7 +74,7 @@ const handlePullRequest = async ({ github, context, body }) => {
   })
 }
 
-const handlePush = async ({ github, context, body }) => {
+const handlePush = async ({ logger, github, context, body, output, commitUrl }) => {
   const pullRequests = await github.rest.pulls.list({
     ...context.repo,
     state: "open",
@@ -79,9 +89,12 @@ const handlePush = async ({ github, context, body }) => {
       issueNumber: pullRequests.data[0].number,
     })
   }
+
+  logger("No open pull request found for this push. Logging publish information to console:")
+  await logPublishInfo({ logger, output, commitUrl })
 }
 
-export async function run(github, context) {
+export async function run(github, context, core) {
   const output = JSON.parse(readFileSync("output.json", "utf8"))
   const sha = context.eventName === "pull_request" ? context.payload.pull_request.head.sha : context.payload.after
   const prNumber = context.eventName === "pull_request" ? context.payload.pull_request.number : null
@@ -103,7 +116,7 @@ export async function run(github, context) {
 
   const handlers = {
     pull_request: () => handlePullRequest({ github, context, body }),
-    push: () => handlePush({ github, context, body }),
+    push: () => handlePush({ logger: core.info, github, context, body, output, commitUrl }),
   }
 
   const handler = handlers[context.eventName]
