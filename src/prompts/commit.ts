@@ -1,7 +1,7 @@
 import { confirm, group, note, select, text } from "@clack/prompts"
 import c from "picocolors"
 import { COMMIT_TYPE, LINE_MAX_LENGTH, LINE_MIN_LENGTH } from "~/config"
-import { cancelOnCancel, getCommitMessage } from "~/utils"
+import { cancelOnCancel } from "~/utils"
 
 export const commitPrompt = async () => {
   const results = await group(
@@ -9,8 +9,6 @@ export const commitPrompt = async () => {
       type: () =>
         select({
           initialValue: COMMIT_TYPE[0].name,
-          // without initialValue ^ ts sets the option.value type to void idk
-          // see: https://github.com/natemoo-re/clack/issues/178
           options: COMMIT_TYPE.map(({ name, description }) => ({
             value: name,
             label: name,
@@ -38,11 +36,7 @@ export const commitPrompt = async () => {
         note(
           c.bold(
             c.bgYellow(
-              getCommitMessage({
-                type: results.type!,
-                subject: results.subject!,
-                scope: results.scope as string,
-              })
+              `${results.type}${results.scope ? `(${results.scope})` : ""}: ${results.subject}`
             )
           ),
           c.bold(c.italic("Current commit message"))

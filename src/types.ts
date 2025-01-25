@@ -28,3 +28,12 @@ export type Task = {
     | Promise<void>
   enabled?: boolean
 }
+
+export type CommandResult = {
+  error?: {
+    message: string
+    raw: string
+  }
+  output?: string
+  success: boolean
+}

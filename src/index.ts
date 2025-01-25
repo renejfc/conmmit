@@ -4,8 +4,9 @@ import { intro, log, outro } from "@clack/prompts"
 import { $ } from "bun"
 import c from "picocolors"
 import { parseArgs } from "~/lib"
+import { add, addAll, commit } from "~/lib/git"
 import { addPrompt, commitPrompt } from "~/prompts"
-import { getCommitMessage, handleNonZeroExit, tasks } from "~/utils"
+import { handleNonZeroExit, tasks } from "~/utils"
 
 console.clear()
 $.nothrow()
@@ -27,15 +28,14 @@ await tasks([
     task: async ({ message, stop }) => {
       for (const file of addResults) {
         message(`Adding ${file}`)
+        const { error, output, success } = await add([file])
 
-        const { stderr, stdout, exitCode } = await $`git add ${file}`.quiet()
-        const [error, output] = [stderr.toString(), stdout.toString()]
-
-        handleNonZeroExit(() => stop(c.bold(`Failed adding ${file}.`), exitCode), {
-          error,
-          output,
-          exitCode,
-        })
+        if (!success) {
+          handleNonZeroExit(() => stop(c.bold(`Failed adding ${file}.`), 1), {
+            error,
+            output,
+          })
+        }
       }
     },
   },
@@ -43,33 +43,29 @@ await tasks([
     progress: ["Adding all changes", "All changes added!"],
     enabled: args.get("add-all"),
     task: async ({ stop }) => {
-      const { stderr, stdout, exitCode } = await $`git add -A`.quiet()
-      const [error, output] = [stderr.toString(), stdout.toString()]
+      const { error, output, success } = await addAll()
 
-      handleNonZeroExit(() => stop(c.bold("Failed adding all changes."), exitCode), {
-        error,
-        output,
-        exitCode,
-      })
+      if (!success) {
+        handleNonZeroExit(() => stop(c.bold("Failed adding all changes."), 1), {
+          error,
+          output,
+        })
+      }
     },
   },
   {
     progress: ["Committing", "Commit created!"],
     enabled: true,
     task: async ({ stop }) => {
-      const { stderr, stdout, exitCode } = await $`git commit -m ${getCommitMessage({
+      const { error, output, success } = await commit({
         type: commitResults.type,
         subject: commitResults.subject,
         scope: commitResults.scope as string,
-      })}`.quiet()
-
-      const [error, output] = [stderr.toString(), stdout.toString()]
-
-      handleNonZeroExit(() => stop(c.bold("Commit failed."), exitCode), {
-        error,
-        output,
-        exitCode,
       })
+
+      if (!success) {
+        handleNonZeroExit(() => stop(c.bold("Commit failed."), 1), { error, output })
+      }
 
       return () => log.info(c.italic(output))
     },
