@@ -13,7 +13,8 @@ export const parseArgs = <const T extends [[string, string], string][]>(args: T)
     const longPrefixed = LONG_PREFIX + long
     const shortPrefixed = SHORT_PREFIX + short
 
-    if (!mappedArgs.has(long) && (bunArgs.has(longPrefixed) || bunArgs.has(shortPrefixed))) mappedArgs.set(long, true)
+    if (!mappedArgs.has(long) && (bunArgs.has(longPrefixed) || bunArgs.has(shortPrefixed)))
+      mappedArgs.set(long, true)
     else mappedArgs.set(long, false)
   }
 

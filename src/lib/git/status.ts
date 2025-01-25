@@ -25,7 +25,11 @@ const formatStatusFiles = (files: string[]): FileStatus[] =>
   }))
 
 export const status = async (): Promise<StatusOptions> => {
-  const [modified, untracked, deleted] = await Promise.all([getModifiedFiles(), getUntrackedFiles(), getDeletedFiles()])
+  const [modified, untracked, deleted] = await Promise.all([
+    getModifiedFiles(),
+    getUntrackedFiles(),
+    getDeletedFiles(),
+  ])
 
   const output = new Map<string, FileStatus[]>()
 

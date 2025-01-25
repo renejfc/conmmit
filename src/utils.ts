@@ -30,7 +30,10 @@ export const tasks = async (tasks: Task[]) => {
   }
 }
 
-export const handleNonZeroExit = (callback: () => void, { error, output }: Omit<CommandResult, "success">) => {
+export const handleNonZeroExit = (
+  callback: () => void,
+  { error, output }: Omit<CommandResult, "success">
+) => {
   callback()
 
   if (error) {

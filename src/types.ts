@@ -23,9 +23,10 @@ export type Task = {
   task: ({
     message,
     stop,
-  }: { message: (string: string) => void; stop: (msg: string, code?: number) => void }) =>
-    | Promise<() => void>
-    | Promise<void>
+  }: {
+    message: (string: string) => void
+    stop: (msg: string, code?: number) => void
+  }) => Promise<() => void> | Promise<void>
   enabled?: boolean
 }
 

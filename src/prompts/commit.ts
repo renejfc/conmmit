@@ -27,7 +27,8 @@ export const commitPrompt = async () => {
           placeholder: `Example: "change files structure"`,
           validate: (value) => {
             if (!value) return "Subject is required"
-            if (value.length < LINE_MIN_LENGTH) return `Subject must be at least ${c.bold(c.red(3))} characters`
+            if (value.length < LINE_MIN_LENGTH)
+              return `Subject must be at least ${c.bold(c.red(3))} characters`
             if (value.length > LINE_MAX_LENGTH)
               return `Subject must be less than ${c.bold(c.red(LINE_MAX_LENGTH))} characters`
           },
