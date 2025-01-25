@@ -3,7 +3,7 @@ import c from "picocolors"
 import { COMMIT_TYPE, LINE_MAX_LENGTH, LINE_MIN_LENGTH } from "~/config"
 import { cancelOnCancel } from "~/utils"
 
-export const commitPrompt = async () => {
+export async function commitPrompt() {
   const results = await group(
     {
       type: () =>

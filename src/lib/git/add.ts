@@ -1,7 +1,7 @@
 import { $ } from "bun"
 import type { CommandResult } from "~/types"
 
-export const add = async (files: string[]): Promise<CommandResult> => {
+export async function add(files: string[]): Promise<CommandResult> {
   for (const file of files) {
     const { stderr, stdout, exitCode } = await $`git add ${file}`.quiet()
 
@@ -20,7 +20,7 @@ export const add = async (files: string[]): Promise<CommandResult> => {
   return { success: true }
 }
 
-export const addAll = async (): Promise<CommandResult> => {
+export async function addAll(): Promise<CommandResult> {
   const { stderr, stdout, exitCode } = await $`git add -A`.quiet()
 
   if (exitCode !== 0) {

@@ -3,7 +3,7 @@ import c from "picocolors"
 import { status } from "~/lib/git"
 import { cancelOnCancel } from "~/utils"
 
-export const addPrompt = async () => {
+export async function addPrompt() {
   const options = await status()
 
   if (options.size === 0) return log.warn(c.italic("No changes to add."))

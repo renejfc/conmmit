@@ -3,17 +3,17 @@ import c from "picocolors"
 
 const parseLsFilesOutput = (input: string): string[] => input.split("\n").filter(Boolean)
 
-export const getModifiedFiles = async (): Promise<string[]> => {
+export async function getModifiedFiles(): Promise<string[]> {
   const { stdout } = await $`git ls-files --modified --exclude-standard`.quiet()
   return parseLsFilesOutput(stdout.toString())
 }
 
-export const getUntrackedFiles = async (): Promise<string[]> => {
+export async function getUntrackedFiles(): Promise<string[]> {
   const { stdout } = await $`git ls-files --others --exclude-standard`.quiet()
   return parseLsFilesOutput(stdout.toString())
 }
 
-export const getDeletedFiles = async (): Promise<string[]> => {
+export async function getDeletedFiles(): Promise<string[]> {
   const { stdout } = await $`git ls-files --deleted --exclude-standard`.quiet()
   return parseLsFilesOutput(stdout.toString())
 }
@@ -24,7 +24,7 @@ const formatStatusFiles = (files: string[]): FileStatus[] =>
     value: file,
   }))
 
-export const status = async (): Promise<StatusOptions> => {
+export async function status(): Promise<StatusOptions> {
   const [modified, untracked, deleted] = await Promise.all([
     getModifiedFiles(),
     getUntrackedFiles(),

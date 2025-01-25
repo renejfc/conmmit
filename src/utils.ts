@@ -2,7 +2,7 @@ import { cancel, isCancel, log, outro, spinner } from "@clack/prompts"
 import c from "picocolors"
 import type { CommandResult, Task } from "~/types"
 
-export const cancelOnCancel = (value?: unknown) => {
+export function cancelOnCancel(value?: unknown) {
   const cb = () => {
     cancel("Commit cancelled.")
     process.exit(0)
@@ -16,7 +16,7 @@ export const cancelOnCancel = (value?: unknown) => {
   cb()
 }
 
-export const tasks = async (tasks: Task[]) => {
+export async function tasks(tasks: Task[]) {
   for (const { progress, task, enabled } of tasks) {
     if (!enabled) continue
 
@@ -30,10 +30,10 @@ export const tasks = async (tasks: Task[]) => {
   }
 }
 
-export const handleNonZeroExit = (
+export function handleNonZeroExit(
   callback: () => void,
   { error, output }: Omit<CommandResult, "success">
-) => {
+) {
   callback()
 
   if (error) {
