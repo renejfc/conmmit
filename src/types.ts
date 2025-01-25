@@ -23,8 +23,18 @@ export type Task = {
   task: ({
     message,
     stop,
-  }: { message: (string: string) => void; stop: (msg: string, code?: number) => void }) =>
-    | Promise<() => void>
-    | Promise<void>
+  }: {
+    message: (string: string) => void
+    stop: (msg: string, code?: number) => void
+  }) => Promise<() => void> | Promise<void>
   enabled?: boolean
+}
+
+export type CommandResult = {
+  error?: {
+    message: string
+    raw: string
+  }
+  output?: string
+  success: boolean
 }

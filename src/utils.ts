@@ -1,13 +1,8 @@
 import { cancel, isCancel, log, outro, spinner } from "@clack/prompts"
 import c from "picocolors"
-import type { Task } from "~/types"
+import type { CommandResult, Task } from "~/types"
 
-export const getCommitMessage = ({ type, subject, scope }: { type: string; subject: string; scope?: string }) => {
-  const scopeStr = scope ? `(${scope})` : ""
-  return `${type}${scopeStr}: ${subject}`
-}
-
-export const cancelOnCancel = (value?: unknown) => {
+export function cancelOnCancel(value?: unknown) {
   const cb = () => {
     cancel("Commit cancelled.")
     process.exit(0)
@@ -21,7 +16,7 @@ export const cancelOnCancel = (value?: unknown) => {
   cb()
 }
 
-export const tasks = async (tasks: Task[]) => {
+export async function tasks(tasks: Task[]) {
   for (const { progress, task, enabled } of tasks) {
     if (!enabled) continue
 
@@ -35,16 +30,22 @@ export const tasks = async (tasks: Task[]) => {
   }
 }
 
-export const handleNonZeroExit = (
+export function handleNonZeroExit(
   callback: () => void,
-  { exitCode, error, output }: { exitCode: number; error: string; output: string }
-) => {
-  if (exitCode === 0) return
-
+  { error, output }: Omit<CommandResult, "success">
+) {
   callback()
-  if (error) log.error(c.italic(error))
-  else log.info(c.italic(output))
 
-  outro("Try again.")
-  process.exit(exitCode)
+  if (error) {
+    log.error(c.italic(error.message))
+    log.error(c.italic(error.raw))
+    outro("Try again.")
+    process.exit(1)
+  }
+
+  if (output) {
+    log.info(c.italic(output))
+    outro("Try again.")
+    process.exit(0)
+  }
 }

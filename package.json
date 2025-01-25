@@ -2,14 +2,7 @@
   "name": "conmmit",
   "version": "0.0.6",
   "description": "A CLI that helps you create conventional commits (a.k.a conmmits)",
-  "keywords": [
-    "commit",
-    "commits",
-    "conventional commits",
-    "cli",
-    "git",
-    "bun"
-  ],
+  "keywords": ["commit", "commits", "conventional commits", "cli", "git", "bun"],
   "homepage": "https://github.com/renejfc/conmmit#readme",
   "bugs": {
     "url": "https://github.com/renejfc/conmmit/issues"
@@ -24,8 +17,8 @@
     "url": "https://x.com/ReneJFC_"
   },
   "type": "module",
-  "main": "src/index.ts",
-  "bin": "src/index.ts",
+  "main": "src/main.ts",
+  "bin": "src/main.ts",
   "scripts": {
     "comp": "bun scripts/build.ts",
     "dev": "bun scripts/dev.ts",
@@ -33,8 +26,8 @@
     "format:fix": "biome format src --write",
     "postinstall": "bunx lefthook install",
     "lint": "biome lint src",
-    "lint:fix": "biome lint src --apply",
-    "magic:fix": "biome check src --apply",
+    "lint:fix": "biome lint src --write",
+    "magic:fix": "biome check src --write",
     "release": "bun magic:fix && changelogen --release --push --publish",
     "start": "NODE_ENV=production bun src/index.ts",
     "typecheck": "tsc"
@@ -45,15 +38,13 @@
   },
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
-    "@types/bun": "^1.1.17",
+    "@types/bun": "^1.2.0",
     "changelogen": "^0.5.7",
-    "lefthook": "^1.10.9",
+    "lefthook": "^1.10.10",
     "typescript": "^5.7.3"
   },
   "peerDependencies": {
     "typescript": "^5.7.3"
   },
-  "trustedDependencies": [
-    "@biomejs/biome"
-  ]
+  "trustedDependencies": ["@biomejs/biome"]
 }

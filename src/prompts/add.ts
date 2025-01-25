@@ -1,15 +1,12 @@
 import { groupMultiselect, log } from "@clack/prompts"
-import { $, type ShellOutput } from "bun"
 import c from "picocolors"
+import { status } from "~/lib/git"
 import { cancelOnCancel } from "~/utils"
 
-export const addPrompt = async () => {
-  const options = await getOptions()
+export async function addPrompt() {
+  const options = await status()
 
-  if (options.size === 0) {
-    log.warn(c.italic("No changes to add."))
-    return
-  }
+  if (options.size === 0) return log.warn(c.italic("No changes to add."))
 
   const results = await groupMultiselect({
     message: "Which changes would you like to add?",
@@ -20,34 +17,4 @@ export const addPrompt = async () => {
   cancelOnCancel(results)
 
   return results as string[]
-}
-
-const getOptions = async () => {
-  const [changedFilesSh, untrackedFilesSh, deletedFilesSh] = await Promise.all([
-    $`git ls-files --modified --exclude-standard`.quiet(),
-    $`git ls-files --others --exclude-standard`.quiet(),
-    $`git ls-files --deleted --exclude-standard`.quiet(),
-  ])
-
-  const filesStrToOptions = (input: ShellOutput) =>
-    input.stdout
-      .toString()
-      .split("\n")
-      .map((fileStr) => ({
-        label: c.italic(fileStr),
-        value: fileStr,
-      }))
-      .filter((str) => str.value !== "")
-
-  const changed = filesStrToOptions(changedFilesSh)
-  const untracked = filesStrToOptions(untrackedFilesSh)
-  const deleted = filesStrToOptions(deletedFilesSh)
-
-  const output = new Map<string, { label: string; value: string }[]>()
-
-  if (changed.length) output.set(c.bold("Changed Files"), changed)
-  if (untracked.length) output.set(c.bold("Untracked Files"), untracked)
-  if (deleted.length) output.set(c.bold("Deleted Files"), deleted)
-
-  return output
 }

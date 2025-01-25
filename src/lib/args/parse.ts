@@ -1,8 +1,8 @@
 // TODO: not really the most optimal api, will refactor later
+type ParsedArgsIn = [[string, string], string][]
+type ParsedArgs<T extends ParsedArgsIn> = Map<T[number][0][0], boolean>
 
-type ParsedArgs<T extends [[string, string], string][]> = Map<T[number][0][0], boolean>
-
-export const parseArgs = <const T extends [[string, string], string][]>(args: T): ParsedArgs<T> => {
+export function parseArgs<const T extends ParsedArgsIn>(args: T): ParsedArgs<T> {
   const LONG_PREFIX = "--"
   const SHORT_PREFIX = "-"
 
@@ -13,7 +13,8 @@ export const parseArgs = <const T extends [[string, string], string][]>(args: T)
     const longPrefixed = LONG_PREFIX + long
     const shortPrefixed = SHORT_PREFIX + short
 
-    if (!mappedArgs.has(long) && (bunArgs.has(longPrefixed) || bunArgs.has(shortPrefixed))) mappedArgs.set(long, true)
+    if (!mappedArgs.has(long) && (bunArgs.has(longPrefixed) || bunArgs.has(shortPrefixed)))
+      mappedArgs.set(long, true)
     else mappedArgs.set(long, false)
   }
 
