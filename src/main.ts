@@ -3,7 +3,7 @@
 import { intro, log, outro } from "@clack/prompts"
 import { $ } from "bun"
 import c from "picocolors"
-import { parseArgs } from "~/lib"
+import { parseArgs } from "~/lib/args"
 import { add, addAll, commit } from "~/lib/git"
 import { addPrompt, commitPrompt } from "~/prompts"
 import { handleNonZeroExit, tasks } from "~/utils"
