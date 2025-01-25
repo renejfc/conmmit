@@ -17,8 +17,8 @@
     "url": "https://x.com/ReneJFC_"
   },
   "type": "module",
-  "main": "src/index.ts",
-  "bin": "src/index.ts",
+  "main": "src/main.ts",
+  "bin": "src/main.ts",
   "scripts": {
     "comp": "bun scripts/build.ts",
     "dev": "bun scripts/dev.ts",
