@@ -4,22 +4,22 @@ export const CommitTypeSchema = object({
   name: pipe(
     string(),
     minLength(1, "Type name cannot be empty"),
-    maxLength(10, "Type name cannot exceed 10 characters")
+    maxLength(12, "Type name cannot exceed 12 characters")
   ),
   description: pipe(
     string(),
     minLength(1, "Description cannot be empty"),
-    maxLength(100, "Description cannot exceed 90 characters")
+    maxLength(90, "Description cannot exceed 90 characters")
   ),
   example_scopes: pipe(
     array(
       pipe(
         string(),
         minLength(1, "Scope cannot be empty"),
-        maxLength(10, "Scope cannot exceed 10 characters")
+        maxLength(12, "Scope cannot exceed 12 characters")
       )
     ),
-    minLength(2, "At least 2 example scopes are required"),
+    minLength(1, "At least 1 example scope is required"),
     maxLength(5, "At most 5 example scopes are allowed")
   ),
 })
