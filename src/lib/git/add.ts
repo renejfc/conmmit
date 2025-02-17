@@ -9,7 +9,7 @@ export async function add(files: string[]): Promise<CommandResult> {
       return {
         error: {
           message: `Failed adding ${file}`,
-          raw: stderr.toString(),
+          raw: stderr.toString() || stdout.toString(),
         },
         output: stdout.toString(),
         success: false,
@@ -27,7 +27,7 @@ export async function addAll(): Promise<CommandResult> {
     return {
       error: {
         message: "Failed adding all changes",
-        raw: stderr.toString(),
+        raw: stderr.toString() || stdout.toString(),
       },
       output: stdout.toString(),
       success: false,
