@@ -35,7 +35,8 @@ export function handleNonZeroExit(
   { error, output }: Omit<CommandResult, "success">
 ) {
   callback()
-
+  // i.e when attempting to create a commit with no staged files it exits as an error but doesn't send the error via stderr but stdout...
+  // check prompts, i'm assigning to raw: stderr.toString() || stdout.toString() as a workaround
   if (error) {
     log.error(c.italic(error.message))
     log.error(c.italic(error.raw))

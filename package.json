@@ -34,7 +34,8 @@
   },
   "dependencies": {
     "@clack/prompts": "^0.9.1",
-    "picocolors": "^1.1.1"
+    "picocolors": "^1.1.1",
+    "valibot": "^1.0.0-beta.14"
   },
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
