@@ -12,7 +12,7 @@ import { handleNonZeroExit, tasks } from "~/utils"
 console.clear()
 $.nothrow()
 
-const cfg = await config.init()
+await config.init()
 
 const args = parseArgs([
   [["add", "a"], "Choose which files to add"],
