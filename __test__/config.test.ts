@@ -27,7 +27,7 @@ describe("Config Loading", () => {
       name = ""
     `
 
-    const tempFile = "temp-config.toml"
+    const tempFile = ".temp/conmmit/temp-config.toml"
     await Bun.write(tempFile, invalidConfig)
 
     try {

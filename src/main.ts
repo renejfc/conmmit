@@ -4,12 +4,15 @@ import { intro, log, outro } from "@clack/prompts"
 import { $ } from "bun"
 import c from "picocolors"
 import { parseArgs } from "~/lib/args"
+import { config } from "~/lib/config"
 import { add, addAll, commit } from "~/lib/git"
 import { addPrompt, commitPrompt } from "~/prompts"
 import { handleNonZeroExit, tasks } from "~/utils"
 
 console.clear()
 $.nothrow()
+
+const cfg = await config.init()
 
 const args = parseArgs([
   [["add", "a"], "Choose which files to add"],
