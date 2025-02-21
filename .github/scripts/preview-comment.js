@@ -14,7 +14,7 @@ const generateUrls = ({ sha, owner, repo, commitUrl = null, prNumber = null }) =
   }
 }
 
-const generateCommentBody = ({ sha, owner, repo, commitUrl, prNumber }) => {
+const generateCommentBody = ({ sha, owner, repo, commitUrl, prNumber, version }) => {
   const { shortSha, shortUrl } = generateUrls({ sha, owner, repo, commitUrl, prNumber })
 
   return `${BOT_COMMENT_IDENTIFIER}
@@ -24,7 +24,13 @@ Try this version:
 bun add -g ${shortUrl}
 \`\`\`
 
-###### _[${shortSha}](${commitUrl})_`
+###### _[${shortSha}](${commitUrl})_ **_v${version}_**`
+}
+
+const getNextVersion = (existingComment) => {
+  if (!existingComment) return 1
+  const vIndex = existingComment.body.lastIndexOf("v")
+  return Number(existingComment.body.slice(vIndex + 1)) + 1
 }
 
 const findBotComment = async ({ github, context, issueNumber }) => {
@@ -96,7 +102,10 @@ const handlePush = async ({ logger, github, context, body, output, commitUrl }) 
 
 export async function run(github, context, core) {
   const output = JSON.parse(readFileSync("output.json", "utf8"))
-  const sha = context.eventName === "pull_request" ? context.payload.pull_request.head.sha : context.payload.after
+  const sha =
+    context.eventName === "pull_request"
+      ? context.payload.pull_request.head.sha
+      : context.payload.after
   const prNumber = context.eventName === "pull_request" ? context.payload.pull_request.number : null
 
   const { commitUrl } = generateUrls({
@@ -106,12 +115,19 @@ export async function run(github, context, core) {
     prNumber,
   })
 
+  const existingComment = await findBotComment({
+    github,
+    context,
+    issueNumber: prNumber || context.issue.number,
+  })
+
   const body = generateCommentBody({
     sha,
     owner: context.repo.owner,
     repo: context.repo.repo,
     commitUrl,
     prNumber,
+    version: getNextVersion(existingComment),
   })
 
   const handlers = {
