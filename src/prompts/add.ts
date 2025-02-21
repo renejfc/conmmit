@@ -14,7 +14,7 @@ export async function addPrompt() {
     options: Object.fromEntries(options.entries()),
   })
 
-  cancelOnCancel(results)
+  cancelOnCancel({ value: results })
 
   return results as string[]
 }

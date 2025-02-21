@@ -2,18 +2,24 @@ import { cancel, isCancel, log, outro, spinner } from "@clack/prompts"
 import c from "picocolors"
 import type { CommandResult, Task } from "~/types"
 
-export function cancelOnCancel(value?: unknown) {
-  const cb = () => {
-    cancel("Commit cancelled.")
-    process.exit(0)
+export function cancelOnCancel({
+  value,
+  message = "Cancelled",
+  onBeforeExit,
+  exitCode = 0,
+}: {
+  value?: unknown
+  message?: string
+  onBeforeExit?: () => void
+  exitCode?: number
+} = {}) {
+  const handleCancel = () => {
+    cancel(message)
+    onBeforeExit?.()
+    process.exit(exitCode)
   }
 
-  if (value) {
-    if (isCancel(value)) cb()
-    return
-  }
-
-  cb()
+  if (!value || isCancel(value)) handleCancel()
 }
 
 export async function tasks(tasks: Task[]) {
