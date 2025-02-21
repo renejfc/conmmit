@@ -1,0 +1,60 @@
+# COMMIT TYPES
+[[commit_types]]
+name = "feat"
+description = "A new feature"
+example_scopes = ["api", "ui", "auth", "db"]
+
+[[commit_types]]
+name = "fix"
+description = "A bug fix"
+example_scopes = ["memory", "crash", "data", "performance"]
+
+[[commit_types]]
+name = "wip"
+description = "Work in progress"
+example_scopes = ["prototype", "experiment", "draft", "concept"]
+
+[[commit_types]]
+name = "docs"
+description = "Documentation only changes"
+example_scopes = ["guide", "setup", "reference", "faq"]
+
+[[commit_types]]
+name = "style"
+description = "Code style changes (white-space, formatting, semi-colons, etc)"
+example_scopes = ["format", "lint", "typo"]
+
+[[commit_types]]
+name = "refactor"
+description = "A code change that neither fixes a bug nor adds a feature"
+example_scopes = ["cleanup", "split", "interface"]
+
+[[commit_types]]
+name = "perf"
+description = "A code change that improves performance"
+example_scopes = ["query", "cache", "workers"]
+
+[[commit_types]]
+name = "test"
+description = "Adding missing tests or correcting existing ones"
+example_scopes = ["unit", "integration", "e2e", "performance"]
+
+[[commit_types]]
+name = "build"
+description = "Changes that affect the build system or external deps"
+example_scopes = ["webpack", "babel", "npm", "gradle"]
+
+[[commit_types]]
+name = "ci"
+description = "Changes to the CI configuration files and scripts"
+example_scopes = ["actions", "gitlab", "jenkins", "circleci"]
+
+[[commit_types]]
+name = "chore"
+description = "Other changes that don't modify src or test files"
+example_scopes = ["deps", "tooling", "workflow", "structure"]
+
+[[commit_types]]
+name = "revert"
+description = "Reverts a previous commit"
+example_scopes = ["rollback"]

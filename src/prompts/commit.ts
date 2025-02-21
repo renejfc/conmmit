@@ -1,15 +1,17 @@
 import { confirm, group, note, select, text } from "@clack/prompts"
 import c from "picocolors"
-import { COMMIT_TYPE, LINE_MAX_LENGTH, LINE_MIN_LENGTH } from "~/config"
+import { config } from "~/lib/config"
 import { cancelOnCancel } from "~/utils"
 
 export async function commitPrompt() {
+  const { commit_types, internals } = config.get()
+
   const results = await group(
     {
       type: () =>
         select({
-          initialValue: COMMIT_TYPE[0].name,
-          options: COMMIT_TYPE.map(({ name, description }) => ({
+          initialValue: commit_types[0].name,
+          options: commit_types.map(({ name, description }) => ({
             value: name,
             label: name,
             hint: description,
@@ -19,7 +21,7 @@ export async function commitPrompt() {
       scope: ({ results }) =>
         text({
           message: `Type a scope ${c.italic(c.dim("(optional)"))}`,
-          placeholder: `Examples: ${COMMIT_TYPE.find((t) => t.name === results.type)?.exampleScopes.join(", ")}, etc...`,
+          placeholder: `Examples: ${commit_types.find((t) => t.name === results.type)?.example_scopes.join(", ")}, etc...`,
         }),
       subject: () =>
         text({
@@ -27,10 +29,10 @@ export async function commitPrompt() {
           placeholder: `Example: "change files structure"`,
           validate: (value) => {
             if (!value) return "Subject is required"
-            if (value.length < LINE_MIN_LENGTH)
+            if (value.length < internals.lineMinLength)
               return `Subject must be at least ${c.bold(c.red(3))} characters`
-            if (value.length > LINE_MAX_LENGTH)
-              return `Subject must be less than ${c.bold(c.red(LINE_MAX_LENGTH))} characters`
+            if (value.length > internals.lineMaxLength)
+              return `Subject must be less than ${c.bold(c.red(internals.lineMaxLength))} characters`
           },
         }),
       showMessage: async ({ results }) =>

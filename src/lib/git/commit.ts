@@ -10,7 +10,7 @@ export async function commit({ type, subject, scope }: CommitOptions): Promise<C
     return {
       error: {
         message: "Failed to commit",
-        raw: stderr.toString(),
+        raw: stderr.toString() || stdout.toString(),
       },
       output: stdout.toString(),
       success: false,
