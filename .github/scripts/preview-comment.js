@@ -24,7 +24,7 @@ Try this version:
 bun add -g ${shortUrl}
 \`\`\`
 
-###### _[v${version} — ${shortSha}](${commitUrl})_ **_v${version}_**`
+###### _[v${version} — ${shortSha}](${commitUrl})_`
 }
 
 const getNextVersion = (existingComment) => {
