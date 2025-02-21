@@ -30,7 +30,6 @@ bun add -g ${shortUrl}
 const getNextVersion = (existingComment) => {
   if (!existingComment?.body) return 1
   const match = existingComment.body.match(/v(\d+) —/)
-
   const currentVersion = Number.parseInt(match[1], 10)
   return currentVersion + 1
 }
