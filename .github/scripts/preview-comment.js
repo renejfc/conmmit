@@ -28,9 +28,12 @@ bun add -g ${shortUrl}
 }
 
 const getNextVersion = (existingComment) => {
-  if (!existingComment) return 1
-  const vIndex = existingComment.body.lastIndexOf("v")
-  return Number(existingComment.body.slice(vIndex + 1)) + 1
+  if (!existingComment?.body) return 1
+
+  const match = existingComment.body.match(/v(\d+) —/)
+
+  const currentVersion = Number.parseInt(match[1], 10)
+  return currentVersion + 1
 }
 
 const findBotComment = async ({ github, context, issueNumber }) => {
