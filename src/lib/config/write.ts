@@ -1,12 +1,18 @@
 import { config } from "."
 
-export async function writeDefaultConfig(customPath?: string) {
+export async function writeDefaultConfig({
+  customPath,
+  override = false,
+}: {
+  customPath?: string
+  override?: boolean
+}) {
   try {
     const { internals } = config.get()
     const userConfigPath = customPath || internals.customConfigPath
     const userConfigFile = Bun.file(userConfigPath)
 
-    if (await userConfigFile.exists())
+    if ((await userConfigFile.exists()) && !override)
       throw new Error(`Config file already exists at ${userConfigPath}`)
 
     const defaultConfigFile = Bun.file(new URL("./default.toml", import.meta.url).pathname)

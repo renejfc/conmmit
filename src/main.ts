@@ -6,20 +6,26 @@ import c from "picocolors"
 import { parseArgs } from "~/lib/args"
 import { config } from "~/lib/config"
 import { add, addAll, commit } from "~/lib/git"
-import { addPrompt, commitPrompt } from "~/prompts"
+import { addPrompt, commitPrompt, configPrompt } from "~/prompts"
 import { handleNonZeroExit, tasks } from "~/utils"
 
 console.clear()
 $.nothrow()
-
 await config.init()
 
 const args = parseArgs([
   [["add", "a"], "Choose which files to add"],
   [["add-all", "A"], "Add all changes to the commit"],
+  [["config", "c"], "Create or overwrite config file"],
 ])
 
 intro(c.bold(c.bgCyan("CONMMIT")))
+
+if (args.get("config")) {
+  await configPrompt()
+  outro("Config setup complete!")
+  process.exit(0)
+}
 
 const addResults = (args.get("add") && (await addPrompt())) || []
 const commitResults = await commitPrompt()

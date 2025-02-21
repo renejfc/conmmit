@@ -8,7 +8,7 @@ const config = (() => {
   return {
     init: async (customPath?: string) => {
       if (cache) return cache
-      cache = await loadConfig(customPath)
+      cache = await loadConfig(customPath || internals.customConfigPath)
       return cache
     },
     get: () => {

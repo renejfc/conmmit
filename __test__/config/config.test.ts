@@ -69,14 +69,14 @@ describe("Config Writing", () => {
 
     const defaultConfig = await loadConfig()
 
-    await writeDefaultConfig(configPath)
+    await writeDefaultConfig({ customPath: configPath })
     const userConfig = await loadConfig(configPath)
 
     expect(await userConfigFile.exists()).toBeTrue()
     expect(userConfig).toStrictEqual(defaultConfig)
   })
 
-  test("should not overwrite existing config", async () => {
+  test("should not overwrite existing config without override", async () => {
     const customConfig = `
       [[commit_types]]
       name = "custom"
@@ -87,8 +87,26 @@ describe("Config Writing", () => {
     const configFile = Bun.file(configPath)
     await configFile.write(customConfig)
 
-    expect(writeDefaultConfig(configPath)).rejects.toThrow()
-    const content = await configFile.text()
-    expect(content).toBe(customConfig)
+    const userConfigOriginal = await loadConfig(configPath)
+    expect(writeDefaultConfig({ customPath: configPath })).rejects.toThrow()
+    const userConfigAfterAttempt = await loadConfig(configPath)
+    expect(userConfigAfterAttempt).toStrictEqual(userConfigOriginal)
+  })
+
+  test("should overwrite existing config with override", async () => {
+    const customConfig = `
+      [[commit_types]]
+      name = "custom"
+      description = "Custom type"
+      example_scopes = ["test"]
+    `
+    const configPath = join(WRITE_TEST_PATH, "config.toml")
+    const configFile = Bun.file(configPath)
+    await configFile.write(customConfig)
+
+    const defaultConfig = await loadConfig()
+    await writeDefaultConfig({ customPath: configPath, override: true })
+    const userConfig = await loadConfig(configPath)
+    expect(userConfig).toStrictEqual(defaultConfig)
   })
 })
