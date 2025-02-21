@@ -1,11 +1,10 @@
 import { confirm, log, note, outro } from "@clack/prompts"
 import c from "picocolors"
-import { config } from "~/lib/config"
+import internals from "~/lib/config/internals"
 import { writeDefaultConfig } from "~/lib/config/write"
 import { cancelOnCancel } from "~/utils"
 
 export async function configPrompt() {
-  const { internals } = config.get()
   const userConfigPath = internals.customConfigPath
   const userConfigFile = Bun.file(userConfigPath)
   const exists = await userConfigFile.exists()

@@ -1,4 +1,4 @@
-import { config } from "."
+import internals from "./internals"
 
 export async function writeDefaultConfig({
   customPath,
@@ -8,7 +8,6 @@ export async function writeDefaultConfig({
   override?: boolean
 }) {
   try {
-    const { internals } = config.get()
     const userConfigPath = customPath || internals.customConfigPath
     const userConfigFile = Bun.file(userConfigPath)
 
