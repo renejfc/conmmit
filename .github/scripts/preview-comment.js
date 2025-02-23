@@ -35,6 +35,8 @@ const getNextVersion = (existingComment) => {
 }
 
 const findBotComment = async ({ github, context, issueNumber }) => {
+  if (!issueNumber) return null
+
   const comments = await github.rest.issues.listComments({
     ...context.repo,
     issue_number: issueNumber,
@@ -116,11 +118,14 @@ export async function run(github, context, core) {
     prNumber,
   })
 
-  const existingComment = await findBotComment({
-    github,
-    context,
-    issueNumber: prNumber || context.issue.number,
-  })
+  const existingComment =
+    context.eventName === "pull_request"
+      ? await findBotComment({
+          github,
+          context,
+          issueNumber: prNumber,
+        })
+      : null
 
   const body = generateCommentBody({
     sha,
