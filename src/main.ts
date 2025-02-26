@@ -1,9 +1,8 @@
 #!/usr/bin/env bun
-
 import { intro, log, outro } from "@clack/prompts"
 import { $ } from "bun"
 import c from "picocolors"
-import { parseArgs } from "~/lib/args"
+import { initArgs } from "~/lib/args"
 import { config } from "~/lib/config"
 import { add, addAll, commit } from "~/lib/git"
 import { addPrompt, commitPrompt, configPrompt } from "~/prompts"
@@ -12,22 +11,17 @@ import { handleNonZeroExit, tasks } from "~/utils"
 console.clear()
 $.nothrow()
 await config.init()
-
-const args = parseArgs([
-  [["add", "a"], "Choose which files to add"],
-  [["add-all", "A"], "Add all changes to the commit"],
-  [["config", "c"], "Create or overwrite config file"],
-])
+const args = initArgs()
 
 intro(c.bold(c.bgCyan("CONMMIT")))
 
-if (args.get("config")) {
+if (args.config) {
   await configPrompt()
   outro("Config setup complete!")
   process.exit(0)
 }
 
-const addResults = (args.get("add") && (await addPrompt())) || []
+const addResults = (args.add && (await addPrompt())) || []
 const commitResults = await commitPrompt()
 
 await tasks([
@@ -50,7 +44,7 @@ await tasks([
   },
   {
     progress: ["Adding all changes", "All changes added!"],
-    enabled: args.get("add-all"),
+    enabled: args["add-all"],
     task: async ({ stop }) => {
       const { error, output, success } = await addAll()
 
